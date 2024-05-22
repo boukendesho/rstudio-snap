@@ -1,0 +1,30 @@
+name: rstudio
+base: core22
+version: '2024.04.1-748'
+license: GPL-3.0
+summary: Unofficial rstudio desktop app
+description: |
+  A unofficial rstudio desktop client
+
+architectures:
+  - build-on: amd64
+
+grade: stable
+confinement: classic
+compression: lzo
+
+apps:
+  rstudio:
+    command: rstudio --no-sandbox
+    desktop: meta/gui/rstudio.desktop
+    environment:
+      TMPDIR: $XDG_RUNTIME_DIR
+      GTK_USE_PORTAL: 1
+
+parts:
+  rstudio:
+    plugin: dump
+    source: https://download1.rstudio.org/electron/jammy/amd64/rstudio-${SNAPCRAFT_PROJECT_VERSION}-amd64-debian.tar.gz 
+    source-type: tar
+    prime:
+      - -chrome-sandbox
