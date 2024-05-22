@@ -20,7 +20,7 @@ jobs:
         id: modified
         run: |
           upstream_version=${{ steps.upstream.outputs.tag }}
-          if upstream_version; then
+          if $upstream_version; then
             # modify this cause official zip pack name is different from gh tag name
             modified_version=$(echo $upstream_version | tr -d 'v' | tr '+' '-')
             echo "version=$modified_version" >> $GITHUB_OUTPUT
