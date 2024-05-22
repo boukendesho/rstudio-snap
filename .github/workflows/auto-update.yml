@@ -14,6 +14,7 @@ jobs:
         uses: oprypin/find-latest-tag@v1
         with:
           repository: rstudio/rstudio
+          sort-tags: false
 
       - name: show upstream version
         run: echo "Upstream version is ${{ steps.upstream.outputs.tag }}"
