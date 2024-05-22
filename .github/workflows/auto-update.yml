@@ -16,8 +16,20 @@ jobs:
           repository: rstudio/rstudio
           sort-tags: false
 
+      - name: modify upstream version
+        id: modified
+        run: |
+          upstream_version=${{ steps.upstream.outputs.tag }}
+          if upstream_version; then
+            # modify this cause official zip pack name is different from gh tag name
+            modified_version=$(echo $upstream_version | tr -d 'v' | tr '+' '-')
+            echo "version=$modified_version" >> $GITHUB_OUTPUT
+          else
+            exit 1
+          fi
+
       - name: show upstream version
-        run: echo "Upstream version is ${{ steps.upstream.outputs.tag }}"
+        run: echo "Upstream version is ${{ steps.modified.outputs.version }}"
       
       - name: Checkout this repo
         uses: actions/checkout@v4
@@ -32,7 +44,7 @@ jobs:
         run: echo "Current version is ${{ steps.current.outputs.result }}"
 
       - name: update version number
-        if: steps.upstream.outputs.tag != steps.current.outputs.result
+        if: steps.modified.outputs.version != steps.current.outputs.result
         uses: mikefarah/yq@master
         with:
           cmd: yq -i '.version = "${{ steps.upstream.outputs.tag }}"' 'snap/snapcraft.yaml'
@@ -43,5 +55,5 @@ jobs:
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
           git add .
-          git commit -m "update snapcraft.yaml to version ${{ steps.upstream.outputs.tag }}"
+          git commit -m "update snapcraft.yaml to version ${{ steps.modified.outputs.version }}"
           git push
