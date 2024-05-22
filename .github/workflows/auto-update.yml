@@ -16,7 +16,7 @@ jobs:
           repository: rstudio/rstudio
         
       
-      - run: echo "Upstream latest tag is ${{upstream.outputs.tag}}"
+      - run: echo "Upstream latest tag is ${{ steps.upstream.outputs.tag }}"
       
       - name: Checkout this repo
         uses: actions/checkout@v3
@@ -27,11 +27,11 @@ jobs:
         with:
           cmd: yq '.version' snapcraft.yaml
 
-      - run: echo "Snapcraft.yaml version is ${{current.outputs.result}}"
+      - run: echo "Snapcraft.yaml version is ${{ steps.current.outputs.result }}"
 
 
   update-snapcraft-yaml:
-    if: check-upstream-changes.upstream.outputs.tag != check-upstream-changes.current.outputs.result
+    if: check-upstream-changes.steps.upstream.outputs.tag != check-upstream-changes.steps.current.outputs.result
     runs-on: ubuntu-latest
     steps:
       - name: update version number  
