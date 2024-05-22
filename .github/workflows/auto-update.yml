@@ -44,13 +44,14 @@ jobs:
         run: echo "Current version is ${{ steps.current.outputs.result }}"
 
       - name: update version number
+        id: update
         if: steps.modified.outputs.version != steps.current.outputs.result
         uses: mikefarah/yq@master
         with:
           cmd: yq -i '.version = "${{ steps.modified.outputs.version }}"' 'snap/snapcraft.yaml'
           
       - name: Commit changes
-        if: steps.modified.outputs.version != steps.current.outputs.result
+        if: steps.update.outcome == 'success'
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
