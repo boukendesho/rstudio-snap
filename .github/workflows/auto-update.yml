@@ -37,12 +37,12 @@ jobs:
       - name: update version number  
         uses: mikefarah/yq@master
         with:
-          cmd: yq -i '.version = "${{upstream.tag}}"' 'snap/snapcraft.yaml'
+          cmd: yq -i '.version = "${{ steps.upstream.outputs.tag }}"' 'snap/snapcraft.yaml'
           
       - name: Commit changes
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
           git add .
-          git commit -m "update snapcraft.yaml to version ${{check-upstream-changes.upstream.outputs.tag}}"
+          git commit -m "update snapcraft.yaml to version ${{ check-upstream-changes.steps.upstream.outputs.tag }}"
           git push
