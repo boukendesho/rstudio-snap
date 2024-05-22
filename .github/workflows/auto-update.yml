@@ -34,7 +34,7 @@ jobs:
 
 
   update-snapcraft-yaml:
-    if: ${{needs.check-upstream-changes.outputs.output1}} != ${{needs.check-upstream-changes.outputs.output1}}
+    if: ${{ needs.check-upstream-changes.outputs.output1 }} != ${{ needs.check-upstream-changes.outputs.output2 }}
     runs-on: ubuntu-latest
     steps:
       - name: update version number  
