@@ -50,7 +50,7 @@ jobs:
           cmd: yq -i '.version = "${{ steps.upstream.outputs.tag }}"' 'snap/snapcraft.yaml'
           
       - name: Commit changes
-        if: steps.upstream.outputs.tag != steps.current.outputs.result
+        if: steps.modified.outputs.version != steps.current.outputs.result
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
