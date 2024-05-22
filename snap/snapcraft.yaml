@@ -1,7 +1,7 @@
 name: rstudio
 base: core22
 version: '2024.04.1-748'
-license: GPL-3.0
+license: AGPL-3.0
 summary: Unofficial rstudio desktop app
 description: |
   A unofficial rstudio desktop client
