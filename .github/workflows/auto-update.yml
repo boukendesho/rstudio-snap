@@ -8,18 +8,12 @@ on:
 jobs:
   check-upstream-changes:
     runs-on: ubuntu-latest
-    outputs:
-      output1: ${{ steps.step1.outputs.test }}
-      output2: ${{ steps.step2.outputs.test }}
     steps:
       - name: fetch upstream latest tag
         id: upstream
         uses: oprypin/find-latest-tag@v1
         with:
           repository: rstudio/rstudio
-        
-      - id: step1
-      - run: echo "version=${{ steps.upstream.outputs.tag }}" >> "$GITHUB_OUTPUT"
       
       - name: Checkout this repo
         uses: actions/checkout@v3
@@ -29,23 +23,18 @@ jobs:
         uses: mikefarah/yq@master
         with:
           cmd: yq '.version' snapcraft.yaml
-      - id: step2
-      - run: echo "version=${{ steps.current.outputs.result }}" >> "$GITHUB_OUTPUT"
 
-
-  update-snapcraft-yaml:
-    if: ${{ needs.check-upstream-changes.outputs.output1 }} != ${{ needs.check-upstream-changes.outputs.output2 }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: update version number  
+      - name: update version number
+        if: steps.upstream.outputs.tag != steps.current.outputs.result
         uses: mikefarah/yq@master
         with:
           cmd: yq -i '.version = "${{ steps.upstream.outputs.tag }}"' 'snap/snapcraft.yaml'
           
       - name: Commit changes
+        if: steps.upstream.outputs.tag != steps.current.outputs.result
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
           git add .
-          git commit -m "update snapcraft.yaml to version ${{ check-upstream-changes.steps.upstream.outputs.tag }}"
+          git commit -m "update snapcraft.yaml to version ${{ steps.upstream.outputs.tag }}"
           git push
