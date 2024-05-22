@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  check-upstream-changes:
+  update-snapcraft-yaml:
     runs-on: ubuntu-latest
     steps:
       - name: fetch upstream latest tag
@@ -14,6 +14,9 @@ jobs:
         uses: oprypin/find-latest-tag@v1
         with:
           repository: rstudio/rstudio
+
+      - name: show upstream version
+        run: echo "Upstream version is ${{ steps.upstream.outputs.tag }}"
       
       - name: Checkout this repo
         uses: actions/checkout@v4
@@ -23,6 +26,9 @@ jobs:
         uses: mikefarah/yq@master
         with:
           cmd: yq '.version' 'snap/snapcraft.yaml'
+
+      - name: show current version
+        run: echo "Current version is ${{ steps.current.outputs.result }}"
 
       - name: update version number
         if: steps.upstream.outputs.tag != steps.current.outputs.result
