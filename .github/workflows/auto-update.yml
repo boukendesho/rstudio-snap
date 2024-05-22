@@ -16,13 +16,13 @@ jobs:
           repository: rstudio/rstudio
       
       - name: Checkout this repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       
       - name: get current version
         id: current
         uses: mikefarah/yq@master
         with:
-          cmd: yq '.version' snapcraft.yaml
+          cmd: yq '.version' 'snap/snapcraft.yaml'
 
       - name: update version number
         if: steps.upstream.outputs.tag != steps.current.outputs.result
