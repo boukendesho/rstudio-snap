@@ -47,7 +47,7 @@ jobs:
         if: steps.modified.outputs.version != steps.current.outputs.result
         uses: mikefarah/yq@master
         with:
-          cmd: yq -i '.version = "${{ steps.upstream.outputs.tag }}"' 'snap/snapcraft.yaml'
+          cmd: yq -i '.version = "${{ steps.modified.outputs.version }}"' 'snap/snapcraft.yaml'
           
       - name: Commit changes
         if: steps.modified.outputs.version != steps.current.outputs.result
