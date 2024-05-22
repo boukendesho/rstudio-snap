@@ -1,0 +1,40 @@
+name: Check upstream if a new version release
+
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+jobs:
+  check-upstream-changes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: fetch upstream latest tag
+        id: upstream
+        uses: oprypin/find-latest-tag@v1
+        with:
+          repository: rstudio/rstudio
+        
+      
+      - run: echo "Upstream latest tag is ${{upstream.outputs.tag}}"
+      
+      - name: Checkout this repo
+        uses: actions/checkout@v3
+      
+      - name: get current version
+        id: current
+        uses: mikefarah/yq@master
+        with:
+          cmd: yq '.version' snapcraft.yaml
+
+      - run: echo "Snapcraft.yaml version is ${{current.outputs.result}}"
+
+
+  update-snapcraft-yaml:
+    if: check-upstream-changes.upstream.outputs.tag != check-upstream-changes.current.outputs.result
+    runs-on: ubuntu-latest
+    steps:
+      - name: update version number  
+        uses: mikefarah/yq@master
+        with:
+          cmd: yq -i '.version = "${{upstream.tag}}"' 'snap/snapcraft.yaml'
