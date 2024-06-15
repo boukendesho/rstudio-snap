@@ -18,7 +18,7 @@ This snap is maintained by me, and is not necessarily endorsed or officially mai
 ## Install
 
 ```bash
-$ sudo snap install rstudio
+$ sudo snap install rstudio --classic
 ```
 
 ## Help info
