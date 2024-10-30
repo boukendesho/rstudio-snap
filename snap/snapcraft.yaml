@@ -1,22 +1,23 @@
 name: rstudio
-base: core22
-version: '2024.04.2-764'
+base: core24
+version: '2024.09.0-375'
 license: AGPL-3.0
-summary: Unofficial rstudio desktop app
+summary: Unofficial rstudio desktop snap
 description: |
-  A unofficial rstudio desktop client
-architectures:
-  - build-on: amd64
+  A unofficial rstudio desktop snap
+
+platforms:
+  amd64:
+
 grade: stable
 confinement: classic
 compression: lzo
+
 apps:
   rstudio:
     command: rstudio --no-sandbox
     desktop: meta/gui/rstudio.desktop
-    environment:
-      TMPDIR: $XDG_RUNTIME_DIR
-      GTK_USE_PORTAL: 1
+
 parts:
   rstudio:
     plugin: dump

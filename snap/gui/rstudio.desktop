@@ -1,5 +1,5 @@
 [Desktop Entry]
-Exec=rstudio --no-sandbox %F
+Exec=rstudio %F
 Icon=${SNAP}/meta/gui/rstudio.png
 Type=Application
 Terminal=false
