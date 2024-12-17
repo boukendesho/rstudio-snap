@@ -1,6 +1,6 @@
 name: rstudio
 base: core24
-version: '2024.09.1-394'
+version: '2024.12.0-467'
 license: AGPL-3.0
 summary: Unofficial rstudio desktop snap
 description: |
