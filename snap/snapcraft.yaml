@@ -19,5 +19,9 @@ parts:
     plugin: dump
     source: https://download1.rstudio.org/electron/jammy/amd64/rstudio-${SNAPCRAFT_PROJECT_VERSION}-amd64-debian.tar.gz
     source-type: tar
+    build-attributes:
+      - enable-patchelf
+    # stage-packages:
+    #   - 
     prime:
       - -chrome-sandbox
