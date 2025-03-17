@@ -19,5 +19,39 @@ parts:
     plugin: dump
     source: https://download1.rstudio.org/electron/jammy/amd64/rstudio-${SNAPCRAFT_PROJECT_VERSION}-amd64-debian.tar.gz
     source-type: tar
+    build-attributes:
+      - enable-patchelf
+    stage-packages:
+      - libasound2t64
+      - libatk-bridge2.0-0t64
+      - libatk1.0-0t64
+      - libatspi2.0-0t64
+      - libcairo2
+      # - libcanberra-gtk3-module
+      - libcups2t64
+      # - libcurl3-gnutls
+      # - libcurl3-nss
+      - libcurl4t64
+      - libdrm2
+      - libgbm1
+      - libgl1
+      # - libglib2.0-0
+      - libgtk-3-0t64
+      # - libibus-1.0-5
+      - libnss3
+      - libpango-1.0-0
+      - libsecret-1-0
+      - libnspr4
+      - libx11-6
+      - libxcb1
+      - libxcomposite1
+      - libxext6
+      - libxdamage1
+      - libxfixes3
+      # - libxkbcommon0
+      # - libxkbfile1
+      - libxrandr2
+      - libxss1
     prime:
       - -chrome-sandbox
+      - -usr/share/icons
