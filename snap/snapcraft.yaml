@@ -12,7 +12,7 @@ confinement: classic
 compression: lzo
 apps:
   rstudio:
-    command: rstudio --no-sandbox
+    command: electron-launch $SNAP/rstudio --no-sandbox
     desktop: meta/gui/rstudio.desktop
 parts:
   rstudio:
@@ -27,7 +27,7 @@ parts:
       - libatk1.0-0t64
       - libatspi2.0-0t64
       - libcairo2
-      # - libcanberra-gtk3-module
+      - libcanberra-gtk3-module
       - libcups2t64
       # - libcurl3-gnutls
       # - libcurl3-nss
@@ -35,9 +35,9 @@ parts:
       - libdrm2
       - libgbm1
       - libgl1
-      # - libglib2.0-0
+      - libglib2.0-0
       - libgtk-3-0t64
-      # - libibus-1.0-5
+      - libibus-1.0-5
       - libnss3
       - libpango-1.0-0
       - libsecret-1-0
@@ -48,10 +48,16 @@ parts:
       - libxext6
       - libxdamage1
       - libxfixes3
-      # - libxkbcommon0
-      # - libxkbfile1
+      - libxkbcommon0
+      - libxkbfile1
       - libxrandr2
       - libxss1
     prime:
       - -chrome-sandbox
       - -usr/share/icons
+
+  electron-launch:
+    after:
+      - rstudio
+    plugin: dump
+    source: helper/
