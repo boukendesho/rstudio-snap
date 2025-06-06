@@ -1,6 +1,6 @@
 name: rstudio
 base: core24
-version: '2025.05.0-496'
+version: '2025.05.1-513'
 license: AGPL-3.0
 summary: Unofficial rstudio desktop snap
 description: |
@@ -55,7 +55,6 @@ parts:
     prime:
       - -chrome-sandbox
       - -usr/share/icons
-
   electron-launch:
     after:
       - rstudio
