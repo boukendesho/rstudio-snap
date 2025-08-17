@@ -1,7 +1,8 @@
 ## rstudio-snap
 [![rstudio-desktop](https://snapcraft.io/rstudio/badge.svg)](https://snapcraft.io/rstudio)
 
-[Upstream Project Link](https://github.com/rstudio/rstudio) 
+## Upstream
+[![rstudio](https://img.shields.io/github/v/tag/rstudio/rstudio?logo=github)](https://github.com/rstudio/rstudio) 
 
 This is an unofficial rstudio desktop snap, that repack from official packages.
   
