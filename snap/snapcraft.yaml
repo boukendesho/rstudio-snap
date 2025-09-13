@@ -1,22 +1,19 @@
 name: rstudio
 base: core24
-version: '2025.05.1-513'
+version: '2025.09.0-387'
 license: AGPL-3.0
 summary: Unofficial rstudio desktop snap
 description: |
   A unofficial rstudio desktop snap
-
 platforms:
   amd64:
 grade: stable
 confinement: classic
 compression: lzo
-
 apps:
   rstudio:
     command: rstudio --no-sandbox
     desktop: meta/gui/rstudio.desktop
-
 parts:
   rstudio:
     plugin: dump
