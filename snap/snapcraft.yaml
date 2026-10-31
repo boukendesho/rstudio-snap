@@ -13,7 +13,7 @@ compression: lzo
 apps:
   rstudio:
     command: rstudio --no-sandbox
-    desktop: meta/gui/rstudio.desktop
+    desktop: gui/rstudio.desktop
 parts:
   rstudio:
     plugin: dump
